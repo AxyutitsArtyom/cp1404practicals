@@ -1,4 +1,4 @@
-def main():
+def main1():
     numbers = []
     print("Enter 5 numbers")
     for i in range(5):
@@ -15,4 +15,10 @@ def print_list_info(numbers):
           f"The average of the numbers is {sum(numbers) / len(numbers): .1f}")
 
 
-main()
+usernames = ['jimbo', 'giltson98', 'derekf', 'WhatSup', 'NicolEye', 'swei45', 'BaseInterpreterInterface',
+             'BaseStdIn', 'Command', 'ExecState', 'InteractiveConsole', 'InterpreterInterface', 'StartServer',
+             'bob']
+if input("Enter your username: ") in usernames:
+    print("Access granted")
+else:
+    print("Access denied")
