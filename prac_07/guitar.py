@@ -10,6 +10,9 @@ class Guitar:
     def __lt__(self, other):
         return self.year < other
 
+    def __getitem__(self, item):
+        return item
+
     def get_age(self):
         return 2024 - self.year
 
