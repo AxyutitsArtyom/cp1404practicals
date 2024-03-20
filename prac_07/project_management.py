@@ -3,6 +3,7 @@ Estimated: 30 min
 Actual: 100 min
 """
 from prac_07.project import Project
+import datetime
 
 VALID_CHOICES = "LSDFAUQ"
 MENU = "- (L)oad projects\n" \
@@ -21,7 +22,7 @@ def main():
         for line in in_file:
             line = line.strip("\n").split("	")
             name = line[0]
-            start_date = line[1]
+            start_date = datetime.datetime.strptime(line[1], "%d/%m/%Y").date()
             priority = int(line[2])
             cost_estimate = float(line[3])
             completion_percentage = int(line[4])
@@ -56,21 +57,46 @@ def main():
                         print("Invalid project number")
                     except IndexError:
                         print("Invalid project number")
+
                 while True:
                     try:
-                        percentage = int(input("Percent complete: "))
-                        if 0 < percentage < 100:
+                        percentage = input("New Percentage: ")
+                        if percentage == "":
+                            break
+                        percentage = int(percentage)
+                        if 0 <= percentage <= 100:
+                            projects[project_choice].completion_percentage = percentage
                             break
                         else:
-                            print("Number must be > 0 and < 100")
+                            print("Number must be >= 0 and <= 100")
                     except ValueError:
                         print("Invalid input")
-                projects[project_choice].completion_percentage = percentage
+
+                while True:
+                    priority = input("New Priority: ")
+                    if priority == "":
+                        break
+                    try:
+                        priority = int(priority)
+                        if 0 < priority:
+                            projects[project_choice].priority = priority
+                            break
+                        else:
+                            print("Number must be > 0")
+                    except ValueError:
+                        print("Invalid input")
 
             elif choice == "A":
                 print("Let's add a new project")
                 name = input("Name: ")
-                start_date = input("Start date (dd/mm/yy): ")
+                while True:
+                    try:
+                        start_date = input("Start date (dd/mm/yy): ")
+                        start_date = datetime.datetime.strptime(start_date, "%d/%m/%Y").date()
+                        break
+                    except ValueError:
+                        print("Invalid date")
+
                 while True:
                     try:
                         priority = int(input("Priority: "))
@@ -84,25 +110,34 @@ def main():
                 while True:
                     try:
                         cost_estimate = int(input("Cost estimate: $"))
-                        if 0 < cost_estimate:
+                        if 0 <= cost_estimate:
                             break
                         else:
-                            print("Number must be > 0")
+                            print("Number must be >= 0")
                     except ValueError:
                         print("Invalid input")
                 while True:
                     try:
                         percentage = int(input("Percent complete: "))
-                        if 0 < percentage < 100:
+                        if 0 <= percentage <= 100:
                             break
                         else:
-                            print("Number must be > 0 and < 100")
+                            print("Number must be >= 0 and <= 100")
                     except ValueError:
                         print("Invalid input")
-                projects.append(Project(name, start_date, priority, cost_estimate, percentage))
+
+                projects.append(Project(name, start_date.strftime("%d/%m/%Y"), priority, cost_estimate, percentage))
 
             elif choice == "F":
-                filter_date = input("Show projects that start after date (dd/mm/yy): ")
+                while True:
+                    try:
+                        filter_date = datetime.datetime.strptime(input("Show projects that start after date (dd/mm/yy): "), "%d/%m/%Y").date()
+                        break
+                    except ValueError:
+                        print("Invalid date")
+                for project in projects:
+                    if project.start_date > filter_date:
+                        print(project)
             print(MENU)
             choice = get_valid_choice()
 
