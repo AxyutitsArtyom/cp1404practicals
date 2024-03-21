@@ -1,5 +1,5 @@
 class Project:
-    def __init__(self, name="", start_date="", priority=0, cost_estimate=0.0, completion_percentage=0):
+    def __init__(self, name, start_date, priority, cost_estimate, completion_percentage):
         self.name = name
         self.start_date = start_date
         self.priority = priority
