@@ -1,6 +1,6 @@
 from prac_09.taxi import Taxi
 
-prius = Taxi(100, "Prius 1", 1.23)
+prius = Taxi(100, "Prius 1")
 prius.drive(40)
 print(prius)
 prius.start_fare()
