@@ -15,10 +15,10 @@ class SilverServiceTaxi(Taxi):
                f"{self.price_per_km * self.fanciness:.2f}/km plus flagfall of {self.flagfall}"
 
     def get_fare(self):
-        return self.price_per_km * self.current_fare_distance * self.fanciness + self.flagfall
+        return super().get_fare() * self.fanciness + self.flagfall
 
     def start_fare(self):
         self.current_fare_distance = 0
 
     def drive(self, distance):
-        super(SilverServiceTaxi, self).drive(distance)
+        super().drive(distance)
