@@ -18,7 +18,7 @@ class SilverServiceTaxi(Taxi):
         return super().get_fare() * self.fanciness + self.flagfall
 
     def start_fare(self):
-        self.current_fare_distance = 0
+        super().start_fare()
 
     def drive(self, distance):
         super().drive(distance)
